@@ -18,7 +18,6 @@ SRC_URI:append:odroid-c2 = "\
     file://odroid-c2/bl301.bin \
     file://odroid-c2/bl30.bin \
     file://odroid-c2/bl31.bin \
-    file://0001-Add-default-bootargs.patch \
     "
 
 SRC_URI:append:odroid-n2 = "\
