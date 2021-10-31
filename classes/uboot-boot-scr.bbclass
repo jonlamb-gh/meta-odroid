@@ -34,15 +34,13 @@
 #
 inherit kernel-arch
 
-DEPENDS += "u-boot-mkimage-native"
-
 # enable by default
 USE_BOOTSCR ?=  '1'
 
 UBOOT_ENV_SUFFIX ??= "scr"
 UBOOT_ENV ?= "boot"
 
-UBOOT_ENV_CONFIG ?= "${B}/${UBOOT_ENV}.txt"
+UBOOT_ENV_CONFIG ?= "${WORKDIR}/${UBOOT_ENV}.cmd"
 
 UBOOT_LOADADDRESS ?= ""
 UBOOT_FDT_LOADADDR ?= ""
@@ -53,7 +51,7 @@ UBOOT_INITRD_NAME ?= ""
 UBOOT_INITRD_ADDR ?= "-"
 UBOOT_ROOT_ARGS ?= "rw rootwait"
 UBOOT_NFS_ARGS ?= ",tcp,v3,wsize=8192,rsize=8192"
-UBOOT_ROOT_mmc ?= "mmcblk0p2 ${UBOOT_ROOT_ARGS}"
+UBOOT_ROOT_mmc ?= "mmcblk1p2 ${UBOOT_ROOT_ARGS}"
 UBOOT_ROOT_nfs ?= "nfs ${UBOOT_ROOT_ARGS}"
 
 UBOOT_CONSOLE ?= ""
@@ -226,10 +224,7 @@ FILES:${PN} += "/*.${UBOOT_ENV_SUFFIX}"
 do_compile[prefuncs] += "create_uboot_boot_txt"
 
 do_compile:append () {
-    if [ "${UBOOT_ENV_SUFFIX}" = "scr" ]; then
-        echo "uboot-mkimage -C none -A ${ARCH} -T script -d ${UBOOT_ENV_CONFIG} ${WORKDIR}/${UBOOT_ENV_BINARY}"
-        uboot-mkimage -C none -A ${ARCH} -T script -d ${UBOOT_ENV_CONFIG} ${WORKDIR}/${UBOOT_ENV_BINARY}
-    else
+    if [ "${UBOOT_ENV_SUFFIX}" != "scr" ]; then
         cp ${UBOOT_ENV_CONFIG} ${WORKDIR}/${UBOOT_ENV_BINARY}
     fi
 }
