@@ -2,7 +2,7 @@ require u-boot-hardkernel.inc
 LICENSE="GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 
-UBOOT_REPO_URI ?= "git://github.com/hardkernel/u-boot.git"
+UBOOT_REPO_URI ?= "git://github.com/hardkernel/u-boot.git;branch=master;protocol=https"
 UBOOT_BRANCH ?= "odroidc-v2011.03"
 
 SRCREV = "73843c840cc224228d0982bd59e8e5e98b5d465b"

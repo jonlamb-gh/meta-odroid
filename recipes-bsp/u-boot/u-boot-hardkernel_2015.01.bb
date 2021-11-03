@@ -24,7 +24,7 @@ BRANCH = "odroidg12-v2015.01"
 UBOOT_INITIAL_ENV = ""
 
 SRC_URI = "\
-    git://github.com/hardkernel/u-boot.git;branch=${BRANCH} \
+    git://github.com/hardkernel/u-boot.git;branch=${BRANCH};protocol=https \
     file://boot.ini \
     https://releases.linaro.org/archive/13.11/components/toolchain/binaries/gcc-linaro-aarch64-none-elf-4.8-2013.11_linux.tar.xz;name=aarch64linaro;subdir=git \
     https://releases.linaro.org/archive/14.04/components/toolchain/binaries/gcc-linaro-arm-none-eabi-4.8-2014.04_linux.tar.xz;name=aarch64linaroelf;subdir=git \

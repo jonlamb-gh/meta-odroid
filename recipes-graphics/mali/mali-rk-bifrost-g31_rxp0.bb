@@ -9,7 +9,7 @@ DEPENDS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'virtual/me
 
 BRANCH = "mali-t62x_r12p0_00rel0"
 SRCREV = "595cb959b48ccc1b9154fac5988191a1c3fffe3b"
-SRC_URI = "git://github.com/akuster/arm-mali.git;branch=${BRANCH}"
+SRC_URI = "git://github.com/akuster/arm-mali.git;branch=${BRANCH};protocol=https"
 
 S = "${WORKDIR}/git"
 
