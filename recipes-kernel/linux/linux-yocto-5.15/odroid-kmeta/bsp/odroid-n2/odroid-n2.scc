@@ -1,0 +1,7 @@
+define KMACHINE odroid-n2
+define KTYPE standard
+define KARCH arm64
+
+include ktypes/standard/standard.scc
+
+include bsp/meson/meson64-common.scc
