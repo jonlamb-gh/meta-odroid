@@ -7,7 +7,6 @@ XSERVER = " \
     xf86-video-fbdev \
     xf86-input-evdev \
     xf86-input-mouse \
-    xf86-input-keyboard \
     xf86-video-modesetting \
     xserver-xorg-module-libint10 \
 "

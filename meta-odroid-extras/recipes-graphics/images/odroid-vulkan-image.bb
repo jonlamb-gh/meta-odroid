@@ -23,7 +23,6 @@ XSERVER = " \
     xf86-video-armsoc \
     xf86-input-evdev \
     xf86-input-mouse \
-    xf86-input-keyboard \
 "
 
 CORE_IMAGE_BASE_INSTALL += " \
