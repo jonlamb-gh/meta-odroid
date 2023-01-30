@@ -10,7 +10,8 @@ inherit ${@oe.utils.conditional('MACHINE', 'odroid-c4', 'uboot-boot-scr', '', d)
 inherit ${@oe.utils.conditional('MACHINE', 'odroid-hc4', 'uboot-boot-scr', '', d)}
 
 DEPENDS += "u-boot-mkimage-native atf-native"
-SRC_URI:append:odroid =  " file://0001-mmc-avoid-division-by-zero-in-meson_mmc_config_clock.patch"
+SRC_URI:append:odroid =  " file://0001-mmc-avoid-division-by-zero-in-meson_mmc_config_clock.patch \
+                           file://0001-odroid-xu3-defconfig-disable-CONFIG_BOARD_LATE_INIT.patch "
 
 SRC_URI:append:odroid-c2 = "\
     file://odroid-c2/aml_encrypt_gxb \
