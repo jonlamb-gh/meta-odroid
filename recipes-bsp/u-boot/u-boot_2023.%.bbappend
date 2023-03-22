@@ -8,10 +8,14 @@ inherit ${@oe.utils.conditional('MACHINE', 'odroid-xu3-lite', 'uboot-boot-scr', 
 inherit ${@oe.utils.conditional('MACHINE', 'odroid-n2', 'uboot-boot-scr', '', d)}
 inherit ${@oe.utils.conditional('MACHINE', 'odroid-c4', 'uboot-boot-scr', '', d)}
 inherit ${@oe.utils.conditional('MACHINE', 'odroid-hc4', 'uboot-boot-scr', '', d)}
+inherit ${@oe.utils.conditional('MACHINE', 'odroid-n2l', 'uboot-boot-scr', '', d)}
 
 DEPENDS += "u-boot-mkimage-native atf-native"
 SRC_URI:append:odroid =  " file://0001-mmc-avoid-division-by-zero-in-meson_mmc_config_clock.patch \
-                           file://0001-odroid-xu3-defconfig-disable-CONFIG_BOARD_LATE_INIT.patch "
+                           file://0001-odroid-xu3-defconfig-disable-CONFIG_BOARD_LATE_INIT.patch \
+                           file://0001-ARM-dts-Import-Odroid-N2L-support.patch \
+                           file://0002-ARM-meson-Add-support-for-Odroid-N2L.patch \
+                         "
 
 SRC_URI:append:odroid-c2 = "\
     file://odroid-c2/aml_encrypt_gxb \
@@ -21,7 +25,7 @@ SRC_URI:append:odroid-c2 = "\
     file://odroid-c2/bl31.bin \
     "
 
-SRC_URI:append:odroid-n2 = "\
+odroid-n2_uboot = "\
     file://odroid-n2/aml_encrypt_g12b \
     file://odroid-n2/bl2.bin \
     file://odroid-n2/bl30.bin \
@@ -37,6 +41,24 @@ SRC_URI:append:odroid-n2 = "\
     file://odroid-n2/blx_fix.sh \
     file://odroid-n2/bl301.bin \
     file://odroid-n2/acs.bin \
+"
+
+odroid-n2l_uboot = "\
+    file://odroid-n2l/aml_encrypt_g12b \
+    file://odroid-n2l/bl2.bin \
+    file://odroid-n2l/bl30.bin \
+    file://odroid-n2l/bl31.img \
+    file://odroid-n2l/ddr3_1d.fw \
+    file://odroid-n2l/ddr4_1d.fw \
+    file://odroid-n2l/ddr4_2d.fw \
+    file://odroid-n2l/lpddr4_1d.fw \
+    file://odroid-n2l/lpddr4_2d.fw \
+    file://odroid-n2l/diag_lpddr4.fw  \
+    file://odroid-n2l/piei.fw \
+    file://odroid-n2l/aml_ddr.fw \
+    file://odroid-n2l/blx_fix.sh \
+    file://odroid-n2l/bl301.bin \
+    file://odroid-n2l/acs.bin \
 "
 
 S905X3_uboot = "\
@@ -61,6 +83,9 @@ S905X3_uboot = "\
 
 SRC_URI:append:odroid-c4 = "${S905X3_uboot}"
 SRC_URI:append:odroid-hc4 = "${S905X3_uboot}"
+
+SRC_URI:append:odroid-n2 = "${odroid-n2_uboot}"
+SRC_URI:append:odroid-n2l = "${odroid-n2l_uboot}"
 
 do_compile:append:odroid-c2 () {
 
@@ -116,6 +141,50 @@ do_compile:append:odroid-n2 () {
         --ddrfw8 aml_ddr.fw \
         --level v3
 }
+
+do_compile:append:odroid-n2l () {
+    cd ${WORKDIR}/odroid-n2l
+    chmod +x ./blx_fix.sh
+
+    ./blx_fix.sh  bl30.bin zero_tmp bl30_zero.bin bl301.bin bl301_zero.bin ${B}/bl30_new.bin bl30
+
+    ./blx_fix.sh bl2.bin zero_tmp bl2_zero.bin acs.bin bl21_zero.bin ${B}/bl2_new.bin bl2
+
+    ./aml_encrypt_g12b --bl30sig --input ${B}/bl30_new.bin \
+                    --output ${B}/bl30_new.bin.g12b.enc \
+                    --level v3
+
+    ./aml_encrypt_g12b --bl3sig --input ${B}/bl30_new.bin.g12b.enc \
+                    --output ${B}/bl30_new.bin.enc \
+                    --level v3 --type bl30
+
+    ./aml_encrypt_g12b --bl3sig --input bl31.img \
+                    --output ${B}/bl31.img.enc \
+                    --level v3 --type bl31
+
+    mv ${B}/u-boot.bin ${B}/bl33.bin
+    ./aml_encrypt_g12b --bl3sig --input ${B}/bl33.bin --compress lz4 \
+                    --output ${B}/bl33.bin.enc \
+                    --level v3 --type bl33 --compress lz4
+
+     ./aml_encrypt_g12b --bl2sig --input ${B}/bl2_new.bin \
+                    --output ${B}/bl2.n.bin.sig
+
+     ./aml_encrypt_g12b --bootmk \
+        --output ${B}/u-boot.bin \
+        --bl2 ${B}/bl2.n.bin.sig \
+        --bl30 ${B}/bl30_new.bin.enc \
+        --bl31 ${B}/bl31.img.enc \
+        --bl33 ${B}/bl33.bin.enc \
+        --ddrfw1 lpddr4_1d.fw \
+        --ddrfw2 lpddr4_2d.fw \
+        --ddrfw4 piei.fw \
+        --ddrfw8 aml_ddr.fw \
+        --level v3
+}
+
+
+
 
 compile_s905x3 () {
     cd ${WORKDIR}/odroid-c4
@@ -192,3 +261,4 @@ COMPATIBLE_MACHINE:odroid-hc1  = "odroid-hc1"
 COMPATIBLE_MACHINE:odroid-n2  = "odroid-n2"
 COMPATIBLE_MACHINE:odroid-c4  = "odroid-c4"
 COMPATIBLE_MACHINE:odroid-hc4  = "odroid-hc4"
+COMPATIBLE_MACHINE:odroid-n2l  = "odroid-n2l"
