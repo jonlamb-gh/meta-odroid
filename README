@@ -9,7 +9,7 @@ Status of support devices:
 
 Mainline
 ################################################################
-The following will boot in 5.x kernel and latest OE uboot
+The following will boot in latest OE kernel and uboot
 
 Arm32:
 ODROID-XU3
