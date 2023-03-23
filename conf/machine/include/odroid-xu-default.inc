@@ -33,3 +33,5 @@ XSERVER:append = " \
 "
 
 SERIAL_CONSOLES ?= "115200;ttySAC2"
+
+EXTRA_IMAGEDEPENDS:append = " secure-odroid"

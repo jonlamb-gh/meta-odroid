@@ -57,8 +57,8 @@ MACHINE_FEATURES:append = " vfat"
 
 KERNEL_FEATURES:append = " cfg/fs/vfat.scc"
 
-EXTRA_IMAGEDEPENDS:append = " u-boot secure-odroid"
-EXTRA_IMAGEDEPENDS:append = " ${@bb.utils.contains("DISTRO_FEATURES", "x11", " odroid-edid", " ", d)}"
+EXTRA_IMAGEDEPENDS:append = " u-boot"
+EXTRA_IMAGEDEPENDS:append = " ${@bb.utils.contains("DISTRO_FEATURES", "edid", " odroid-edid", " ", d)}"
 
 IMAGE_INSTALL:append = " kernel-image kernel-devicetree"
 IMAGE_CLASSES += "image_types_odroid"
