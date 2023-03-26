@@ -1,3 +1,14 @@
 define KFEATURE_DESCRIPTION "Devices/drivers commonly used on Amlogic Meson systems/boards"
 
+include ktypes/base/base.scc
+include arch/arm/arm.scc nopatch
+include cfg/fs/ext4.scc
+include cfg/fs/devtmpfs.scc
+include features/usb/usb-base.scc
+include features/usb/xhci-hcd.scc
+include features/usb/ehci-hcd.scc
+include features/usb/designware-usb3.scc
+include cfg/usb-mass-storage.scc
+include features/usb/usb-gadgets.scc
+
 kconf hardware meson64-common.cfg

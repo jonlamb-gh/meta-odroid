@@ -2,8 +2,6 @@ define KMACHINE odroid-c2
 define KTYPE standard
 define KARCH arm64
 
-include ktypes/standard/standard.scc
-
 include bsp/meson/meson64-common.scc
 
 # enable the ability to run 32 bit apps
