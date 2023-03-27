@@ -20,6 +20,8 @@ WIC_CREATE_EXTRA_ARGS ?= "--no-fstab-update"
 
 MACHINE_FEATURES:append = " serial usbgadget usbhost ext2"
 
+IMAGE_INSTALL:append = " kernel-modules"
+
 MACHINE_FEATURES_BACKFILL_CONSIDERED = "rtc"
 
 IMAGE_FSTYPES ?= " ext4 wic wic.xz wic.bmap"
