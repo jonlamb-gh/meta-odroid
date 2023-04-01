@@ -14,21 +14,24 @@ The following will boot in latest OE kernel and uboot
 Arm32:
 ODROID-XU3
 ODROID-XU3-lite
-ODROID-XU4
+ODROID-XU4 *
+ODROID-XU4Q *
 ODROID-HC1
 
 Arm64:
 ODROID-C2
 ODROID-N2
-ODROID-C4
-ODROID-HC4
+ODROID-N2+ *
+ODROID-C4 *
+ODROID-HC4 *
 This board requires the boot switch to be pressed while powering up or 
 you will need to remove petitboot from the SPI flash if you want u-boot to be executed.
 ODROID-N2L
 
 x86-64:
 ODROID-h2
-ODROID-h3
+ODROID-h3 *
+ODROID-h3+ *
 
 Hardkernel
 ################################################################
@@ -46,13 +49,30 @@ ODROID-hc4-hardkernel
 This boards still use either Hardkernel u-boot or kernel or both
 ODROID-c1: hard-kernel-uboot
 
+OBSOLETE:
+#############################################################
+These boards are no longer being sold by Hardkernel, These may be dropped in a future release:
+
+Amlogic; 
+Odroid-c1
+Odroid-C2
+Odroid-N2
+
+Samsung:
+Odroid-XU3
+Odroid-XU3-lite
+Odroid-HC1
+
+X86-64:
+odroid-H2
 
 TODO:
 ##############################################################
 
 Arm64:
-ODROID-M1
+ODROID-M1 *
 
+* = can buy from Hardkerenl
 
 Mali
 ################################################################
