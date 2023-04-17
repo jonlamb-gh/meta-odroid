@@ -13,8 +13,6 @@ inherit ${@oe.utils.conditional('MACHINE', 'odroid-n2l', 'uboot-boot-scr', '', d
 DEPENDS += "u-boot-mkimage-native atf-native"
 SRC_URI:append:odroid =  " file://0001-mmc-avoid-division-by-zero-in-meson_mmc_config_clock.patch \
                            file://0001-odroid-xu3-defconfig-disable-CONFIG_BOARD_LATE_INIT.patch \
-                           file://0001-ARM-dts-Import-Odroid-N2L-support.patch \
-                           file://0002-ARM-meson-Add-support-for-Odroid-N2L.patch \
                          "
 
 SRC_URI:append:odroid-c2 = "\
