@@ -11,6 +11,7 @@ UBOOT_LOADADDR = "0x40007FC0"
 UBOOT_LOADADDRESS = "0x40007FC0"
 UBOOT_KERNEL_NAME = "zImage"
 UBOOT_USB_NET = "1"
+UBOOT_ROOT ?= "mmcblk0p2"
 
 WKS_FILE ?= "odroid_xu-u-boot.wks"
 
