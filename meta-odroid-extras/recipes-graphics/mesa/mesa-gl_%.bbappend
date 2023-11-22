@@ -24,7 +24,7 @@ do_install:append:meson-gx () {
     fi
 }
 
-do_install:append() {
+do_install:append:odroid-c4() {
     if [ -n "${@bb.utils.contains('MACHINE_FEATURES', 'mali', 'mali', '', d)}" ]; then
         rm -rf ${D}${includedir}/KHR/khrplatform.h
     fi
